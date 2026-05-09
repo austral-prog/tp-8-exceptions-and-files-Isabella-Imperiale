@@ -31,7 +31,21 @@ def read_sales(filename):
             "producto2": [200.0],
         }
     """
-    pass  # Reemplazar con tu implementación
+    with open (filename, "r") as arch:
+        cont = arch.read()
+        cont = cont.strip()
+        pares = cont.split(";")
+        dicc = {}
+        for par in pares:
+            if par != "":
+                venta = par.split(":")
+                producto = venta[0]
+                monto = float(venta[1])
+                if producto in dicc:
+                    dicc[producto].append(monto)
+                else:
+                    dicc[producto] = [monto]
+        return dicc
 
 
 def process_sales(data):
@@ -53,4 +67,11 @@ def process_sales(data):
         process_sales({"producto1": [100.0, 150.0]})
         # imprime: "producto1: ventas totales $250.00, promedio $125.00"
     """
-    pass  # Reemplazar con tu implementación
+    for producto, montos in data.items():
+        total = 0
+        for monto in montos:
+            total += monto
+        promedio = total / len(montos)
+        print(f"{producto}: ventas totales ${total:.2f}, promedio ${promedio:.2f}")
+#data = {"a": [1.0, 2.0, 2.0]}
+#process_sales(data)

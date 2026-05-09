@@ -34,4 +34,26 @@ def grades_stats(filename):
             "Cami": (10.0, 10.0, 10.0),
         }
     """
-    pass  # Reemplazar con tu implementación
+    with open (filename, "r") as arch:
+        dicc = {}
+        for linea in arch:
+            linea = linea.strip()
+            if not linea:
+                continue
+            estudiante, notas_str = linea.split(':')
+            notas = []
+            for n in notas_str.split(','):
+                notas.append(float(n))
+            total = 0
+            for n in notas:
+                total += n
+            promedio = total / len(notas)
+            maximo = notas[0]
+            minimo = notas[0]
+            for n in notas:
+                if n > maximo:
+                    maximo = n
+                if n < minimo:
+                    minimo = n
+            dicc[estudiante] = (promedio, maximo, minimo)
+        return dicc

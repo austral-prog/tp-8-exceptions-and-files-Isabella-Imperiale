@@ -28,4 +28,16 @@ def safe_average(filename):
         # archivo contiene: "10\n20\nno_es_un_numero\n30\n"
         safe_average("numeros.txt") -> 20.0
     """
-    pass  # Reemplazar con tu implementación
+    with open (filename, "r") as arch:
+        lista = []
+        for linea in arch:
+            try:
+                lista.append(float(linea.strip()))
+            except ValueError:
+                pass
+        if not lista:
+            raise ValueError("no valid numbers")
+        total = 0
+        for n in lista:
+            total += n
+        return total / len(lista)

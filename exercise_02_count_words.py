@@ -28,4 +28,12 @@ def count_words(filename):
         # archivo contiene: "Hola mundo hola\nmundo python\n"
         count_words("texto.txt") -> {"hola": 2, "mundo": 2, "python": 1}
     """
-    pass  # Reemplazar con tu implementación
+    with open (filename, "r") as arch:
+        dicc = {}
+        for linea in arch:
+            for p in linea.lower().split():
+                if p in dicc:
+                    dicc[p] += 1
+                else:
+                    dicc[p] = 1
+        return dicc
